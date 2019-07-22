@@ -4,6 +4,7 @@ import loginService from './services/login'
 import LoginForm from './components/LoginForm'
 import Blog from './components/Blog'
 import AddBlogForm from './components/AddBlogForm'
+import Notification from './components/Notification'
 
 const App = () => {
 
@@ -11,6 +12,7 @@ const App = () => {
   const [user, setUser] = useState(null)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [notification, setNotification] = useState(null)
 
   useEffect(() => {
     blogService
@@ -45,13 +47,11 @@ const App = () => {
       setUsername('')
       setPassword('')
     } catch (exception) {
-      console.error(exception)
-      /*
-      setErrorMessage('wrong credentials')
+      console.error(exception)      
+      setNotification({message: 'wrong credentials', isError: true})
       setTimeout(() => {
-        setErrorMessage(null)
-      }, 5000)
-      */
+        setNotification(null)
+      }, 5000)      
     }
   }
 
@@ -71,6 +71,10 @@ const App = () => {
       }
       const returnedBlog = await blogService.create(blogObject)
       setBlogs(blogs.concat(returnedBlog))
+      setNotification({message: `a new blog ${returnedBlog.title} by ${returnedBlog.author} added`, isError: false})
+      setTimeout(() => {
+        setNotification(null)
+      }, 5000)      
     } catch (exception) {
       console.error(exception)
     }
@@ -78,6 +82,9 @@ const App = () => {
 
   return (
     <div>
+      <Notification
+        message={notification}
+      />
       {user === null
         ?
         <div>
