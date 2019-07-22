@@ -42,7 +42,8 @@ const App = () => {
 
   return (
     <div>
-      {user === null &&
+      {user === null
+        ?
         <div>
           <h2>Log in to application</h2>
           <LoginForm
@@ -53,8 +54,7 @@ const App = () => {
             setPassword={setPassword}
           />
         </div>
-      }
-      {user !== null &&
+        :
         <div>
           <h2>Blogs</h2>
           <p>{user.name} logged in</p>
