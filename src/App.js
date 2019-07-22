@@ -10,20 +10,26 @@ import Togglable from './components/Togglable'
 const App = () => {
 
   const [blogs, setBlogs] = useState([])
+  const [sortedBlogs, setSortedBlogs] = useState([])
   const [user, setUser] = useState(null)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [notification, setNotification] = useState(null)
   const blogFormRef = React.createRef()
 
+  
   useEffect(() => {
     blogService
-      .getAll()
-      .then(initialBlogs => {
-        setBlogs(initialBlogs)
-      })
-  }, [user])
-
+    .getAll()
+    .then(initialBlogs => {
+      setBlogs(initialBlogs)
+    })
+  }, [])
+  
+  useEffect(() => {
+    setSortedBlogs([...blogs].sort((a, b) => b.likes - a.likes))
+  }, [blogs])
+  
   useEffect(() => {
     const loggedInUserJSON = window.localStorage.getItem('loggedInUser')
     if (loggedInUserJSON) {
@@ -32,6 +38,7 @@ const App = () => {
       setUser(user)
     }
   }, [])
+
 
   const handleLogin = async (event) => {
     event.preventDefault()
@@ -107,6 +114,8 @@ const App = () => {
     )
   }
 
+
+
   return (
     <div>
       <Notification
@@ -130,7 +139,7 @@ const App = () => {
           <p>{user.name} logged in <button onClick={() => handleLogout()}>logout</button></p>
           <h2>create new</h2>
           {addBlogForm()}
-          {blogs.map(blog =>
+          {sortedBlogs.map(blog =>
             <Blog key={blog.id} blog={blog} addLike={addLike} />
           )}
 
