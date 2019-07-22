@@ -17,19 +17,19 @@ const App = () => {
   const [notification, setNotification] = useState(null)
   const blogFormRef = React.createRef()
 
-  
+
   useEffect(() => {
     blogService
-    .getAll()
-    .then(initialBlogs => {
-      setBlogs(initialBlogs)
-    })
+      .getAll()
+      .then(initialBlogs => {
+        setBlogs(initialBlogs)
+      })
   }, [])
-  
+
   useEffect(() => {
     setSortedBlogs([...blogs].sort((a, b) => b.likes - a.likes))
   }, [blogs])
-  
+
   useEffect(() => {
     const loggedInUserJSON = window.localStorage.getItem('loggedInUser')
     if (loggedInUserJSON) {
@@ -114,6 +114,18 @@ const App = () => {
     )
   }
 
+  const removeBlog = async (id) => {
+    const blog = blogs.find(b => b.id === id)
+    if (window.confirm(`remove blog ${blog.title} by ${blog.author}?`)) {
+      try {
+        const response = await blogService.deleteBlog(id)
+        console.log(response)
+        setBlogs(blogs.filter(b => b.id !== id))
+      } catch (exception) {
+        console.error(exception)
+      }
+    }
+  }
 
 
   return (
@@ -140,7 +152,12 @@ const App = () => {
           <h2>create new</h2>
           {addBlogForm()}
           {sortedBlogs.map(blog =>
-            <Blog key={blog.id} blog={blog} addLike={addLike} />
+            <Blog
+              key={blog.id}
+              blog={blog}
+              addLike={addLike}
+              handleRemove={removeBlog}
+            />
           )}
 
         </div>}

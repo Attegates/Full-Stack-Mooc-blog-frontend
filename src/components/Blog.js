@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-const Blog = ({ blog, addLike }) => {
+const Blog = ({ blog, addLike, handleRemove }) => {
 
   const [showExtended, setShowExtended] = useState(false)
 
@@ -24,6 +24,7 @@ const Blog = ({ blog, addLike }) => {
             <a href={blog.url}>{blog.url}</a>
             <p>{blog.likes} likes <button onClick={() => addLike(blog.id)}>likes</button></p>
             <p>added by {blog.user.name}</p>
+            <button onClick={() => handleRemove(blog.id)}>remove</button>
           </div>
         }
       </div>
