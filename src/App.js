@@ -5,6 +5,7 @@ import LoginForm from './components/LoginForm'
 import Blog from './components/Blog'
 import AddBlogForm from './components/AddBlogForm'
 import Notification from './components/Notification'
+import Togglable from './components/Togglable'
 
 const App = () => {
 
@@ -13,6 +14,7 @@ const App = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [notification, setNotification] = useState(null)
+  const blogFormRef = React.createRef()
 
   useEffect(() => {
     blogService
@@ -47,11 +49,11 @@ const App = () => {
       setUsername('')
       setPassword('')
     } catch (exception) {
-      console.error(exception)      
-      setNotification({message: 'wrong credentials', isError: true})
+      console.error(exception)
+      setNotification({ message: 'wrong credentials', isError: true })
       setTimeout(() => {
         setNotification(null)
-      }, 5000)      
+      }, 5000)
     }
   }
 
@@ -69,15 +71,26 @@ const App = () => {
         author: author,
         url: url
       }
+      blogFormRef.current.toggleVisibility()
       const returnedBlog = await blogService.create(blogObject)
       setBlogs(blogs.concat(returnedBlog))
-      setNotification({message: `a new blog ${returnedBlog.title} by ${returnedBlog.author} added`, isError: false})
+      setNotification({ message: `a new blog ${returnedBlog.title} by ${returnedBlog.author} added`, isError: false })
       setTimeout(() => {
         setNotification(null)
-      }, 5000)      
+      }, 5000)
     } catch (exception) {
       console.error(exception)
     }
+  }
+
+  const addBlogForm = () => {
+    return (
+      <Togglable buttonLabel="new blog" ref={blogFormRef}>
+        <AddBlogForm
+          handleAdd={addBlog}
+        />
+      </Togglable>
+    )
   }
 
   return (
@@ -102,9 +115,7 @@ const App = () => {
           <h2>Blogs</h2>
           <p>{user.name} logged in <button onClick={() => handleLogout()}>logout</button></p>
           <h2>create new</h2>
-          <AddBlogForm
-            handleAdd={addBlog}
-          />
+          {addBlogForm()}
           {blogs.map(blog =>
             <Blog key={blog.id} blog={blog} />
           )}
