@@ -28,8 +28,8 @@ const Notification = ({ message }) => {
   )
 }
 
- Notification.propTypes = {
-   message: PropTypes.object
- }
+Notification.propTypes = {
+  message: PropTypes.object
+}
 
 export default Notification
