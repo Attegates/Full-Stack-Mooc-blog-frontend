@@ -16,7 +16,7 @@ const Blog = ({ blog, addLike, handleRemove, showRemoveButton }) => {
 
   const blogElement = () => {
     return (
-      <div style={blogStyle}>
+      <div className="blog" style={blogStyle}>
         <div className="basicContent" onClick={() => setShowExtended(!showExtended)}>
           {blog.title} {blog.author}
         </div>
