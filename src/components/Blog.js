@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
-const Blog = ({ blog, addLike, handleRemove }) => {
+const Blog = ({ blog, addLike, handleRemove, showRemoveButton }) => {
 
   const [showExtended, setShowExtended] = useState(false)
+  const showRemove = { display: showRemoveButton ? '' : 'none' }
+
 
 
   const blogStyle = {
@@ -24,7 +26,7 @@ const Blog = ({ blog, addLike, handleRemove }) => {
             <a href={blog.url}>{blog.url}</a>
             <p>{blog.likes} likes <button onClick={() => addLike(blog.id)}>likes</button></p>
             <p>added by {blog.user.name}</p>
-            <button onClick={() => handleRemove(blog.id)}>remove</button>
+            <button style={showRemove} onClick={() => handleRemove(blog.id)}>remove</button>
           </div>
         }
       </div>

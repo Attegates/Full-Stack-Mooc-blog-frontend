@@ -157,6 +157,7 @@ const App = () => {
               blog={blog}
               addLike={addLike}
               handleRemove={removeBlog}
+              showRemoveButton={user.username === blog.user.username}
             />
           )}
 
