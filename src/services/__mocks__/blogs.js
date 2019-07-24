@@ -1,28 +1,41 @@
 const blogs = [
   {
-    'title': 'BLACK METAL IST KRIEG',
-    'author': 'Atte Gates',
-    'url': '-----',
-    'likes': 8,
-    'user': {
-      'username': 'atteg',
-      'name': 'Atte Gates',
-      'id': '5d3039ed63e1cb2719af5c35'
+    title: 'BLACK METAL IST KRIEG',
+    author: 'Atte Gates',
+    url: '-----',
+    likes: 8,
+    user: {
+      username: 'atteg',
+      name: 'Atte Gates',
+      id: '5d3039ed63e1cb2719af5c35'
     },
-    'id': '5d303ab77fd96e27bcbd59d7'
+    id: '5d303ab77fd96e27bcbd59d7'
   },
   {
-    'title': 'BLACK METAL IST KRIEG',
-    'author': 'Atte Gates',
-    'url': '-----',
-    'likes': 12,
-    'user': {
-      'username': 'atteg',
-      'name': 'Atte Gates',
-      'id': '5d3039ed63e1cb2719af5c35'
+    title: 'BLACK METAL IST KRIEG',
+    author: 'Atte Gates',
+    url: '-----',
+    likes: 12,
+    user: {
+      username: 'atteg',
+      name: 'Atte Gates',
+      id: '5d3039ed63e1cb2719af5c35'
     },
-    'id': '5d3065f4478c4f3fdb57329c'
+    id: '5d3065f4478c4f3fdb57329c'
   },
+  {
+    title: 'tttt',
+    author: 'tttttt',
+    url: 'ttttt',
+    likes: 0,
+    user: {
+      username: 'testi',
+      name: 'Testi Testeri',
+      id: '5d36904006fec20f5482b252'
+    },
+    id: '5d36909306fec20f5482b254'
+  }
+  /*
   {
     'title': 'BLACK METAL IST KRIEG',
     'author': 'Atte Gates',
@@ -71,10 +84,17 @@ const blogs = [
     },
     'id': '5d36909306fec20f5482b254'
   }
+  */
 ]
 
 const getAll = () => {
   return Promise.resolve(blogs)
 }
 
-export default { getAll }
+let token = null
+
+const setToken = (newToken) => {
+  token = newToken
+}
+
+export default { getAll, setToken }
