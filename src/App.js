@@ -6,14 +6,15 @@ import Blog from './components/Blog'
 import AddBlogForm from './components/AddBlogForm'
 import Notification from './components/Notification'
 import Togglable from './components/Togglable'
+import { useField } from './hooks/index'
 
 const App = () => {
 
   const [blogs, setBlogs] = useState([])
   const [sortedBlogs, setSortedBlogs] = useState([])
   const [user, setUser] = useState(null)
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
+  const username = useField('text')
+  const password = useField('password')
   const [notification, setNotification] = useState(null)
   const blogFormRef = React.createRef()
 
@@ -44,8 +45,9 @@ const App = () => {
     event.preventDefault()
     try {
       const user = await loginService.login({
-        username, password
+        username: username.value, password: password.value
       })
+
 
       window.localStorage.setItem(
         'loggedInUser', JSON.stringify(user)
@@ -53,8 +55,8 @@ const App = () => {
 
       blogService.setToken(user.token)
       setUser(user)
-      setUsername('')
-      setPassword('')
+      username.resetField()
+      password.resetField()
     } catch (exception) {
       console.error(exception)
       setNotification({ message: 'wrong credentials', isError: true })
@@ -139,10 +141,8 @@ const App = () => {
           <h2>Log in to application</h2>
           <LoginForm
             handleLogin={handleLogin}
-            username={username}
-            password={password}
-            setUsername={setUsername}
-            setPassword={setPassword}
+            usernameField={username}
+            passwordField={password}
           />
         </div>
         :
