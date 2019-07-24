@@ -1,46 +1,45 @@
-import React, { useState } from 'react'
+import React from 'react'
+import { useField } from '../hooks/index'
 
 const AddBlogForm = ({ handleAdd }) => {
 
-  const [title, setTitle] = useState('')
-  const [author, setAuthor] = useState('')
-  const [url, setUrl] = useState('')
+  const title = useField('text')
+  const author = useField('text')
+  const url = useField('text')
 
   const onSubmit = (event) => {
     event.preventDefault()
-    handleAdd(event.target.Title.value, event.target.Author.value, event.target.Url.value)
-    setTitle('')
-    setAuthor('')
-    setUrl('')
+    handleAdd(title.value, author.value, url.value)
+    title.resetField()
+    author.resetField()
+    url.resetField()
   }
+
 
   return (
     <form onSubmit={onSubmit}>
       <div>
         title
         <input
-          type="text"
-          value={title}
-          name="Title"
-          onChange={({ target }) => setTitle(target.value)}
+          {...title}
         />
       </div>
       <div>
         author
         <input
-          type="text"
-          value={author}
+          type={author.type}
+          value={author.value}
+          onChange={author.onChange}
           name="Author"
-          onChange={({ target }) => setAuthor(target.value)}
         />
       </div>
       <div>
         url
         <input
-          type="text"
-          value={url}
+          type={url.type}
+          value={url.value}
+          onChange={url.onChange}
           name="Url"
-          onChange={({ target }) => setUrl(target.value)}
         />
       </div>
       <button type="submit">add</button>
