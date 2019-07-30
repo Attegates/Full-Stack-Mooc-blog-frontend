@@ -36,6 +36,6 @@ Notification.propTypes = {
 export default connect(
   (state) => {
     return {
-      message: state
+      message: state.notificationReducer
     }
   })(Notification)

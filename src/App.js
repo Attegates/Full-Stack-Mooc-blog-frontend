@@ -8,11 +8,12 @@ import Notification from './components/Notification'
 import Togglable from './components/Togglable'
 import { useField } from './hooks/index'
 import { setNotification } from './reducers/notificationReducer'
+import { initBlogs } from './reducers/blogReducer'
 import { connect } from 'react-redux'
 
 const App = (props) => {
 
-  const [blogs, setBlogs] = useState([])
+  //const [blogs, setBlogs] = useState([])
   const [sortedBlogs, setSortedBlogs] = useState([])
   const [user, setUser] = useState(null)
   const username = useField('text')
@@ -20,6 +21,7 @@ const App = (props) => {
   const blogFormRef = React.createRef()
 
 
+  /*
   useEffect(() => {
     blogService
       .getAll()
@@ -27,10 +29,17 @@ const App = (props) => {
         setBlogs(initialBlogs)
       })
   }, [])
+  */
 
+  /*
   useEffect(() => {
     setSortedBlogs([...blogs].sort((a, b) => b.likes - a.likes))
   }, [blogs])
+  */
+  const initializeBlogs = props.initBlogs
+  useEffect(() => {
+    initializeBlogs()
+  }, [initializeBlogs])
 
   useEffect(() => {
     const loggedInUserJSON = window.localStorage.getItem('loggedInUser')
@@ -72,6 +81,7 @@ const App = (props) => {
   }
 
   const addBlog = async (title, author, url) => {
+    /*
     try {
       const blogObject = {
         title: title,
@@ -85,9 +95,11 @@ const App = (props) => {
     } catch (exception) {
       console.error(exception)
     }
+    */
   }
 
   const addLike = async (id) => {
+    /*
     const blog = blogs.find(b => b.id === id)
     const changedBlog = { ...blog, likes: blog.likes + 1 }
 
@@ -97,7 +109,7 @@ const App = (props) => {
     } catch (exception) {
       console.error(exception)
     }
-
+    */
   }
 
 
@@ -111,7 +123,9 @@ const App = (props) => {
     )
   }
 
+
   const removeBlog = async (id) => {
+    /*
     const blog = blogs.find(b => b.id === id)
     if (window.confirm(`remove blog ${blog.title} by ${blog.author}?`)) {
       try {
@@ -122,6 +136,7 @@ const App = (props) => {
         console.error(exception)
       }
     }
+    */
   }
 
 
@@ -158,4 +173,4 @@ const App = (props) => {
   )
 }
 
-export default connect(null, { setNotification })(App)
+export default connect(null, { setNotification, initBlogs })(App)

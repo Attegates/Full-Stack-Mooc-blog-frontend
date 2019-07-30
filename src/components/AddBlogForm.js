@@ -1,7 +1,10 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { useField } from '../hooks/index'
+import { createBlog } from '../reducers/blogReducer'
 
-const AddBlogForm = ({ handleAdd }) => {
+
+const AddBlogForm = ({ createBlog, handleAdd }) => {
 
   // take out the resetField() from useField objects.
   const title = useField('text')
@@ -13,7 +16,8 @@ const AddBlogForm = ({ handleAdd }) => {
 
   const onSubmit = (event) => {
     event.preventDefault()
-    handleAdd(title.value, author.value, url.value)
+    //handleAdd(title.value, author.value, url.value)
+    createBlog({ title: title.value })
     titleReset()
     authorReset()
     urlReset()
@@ -45,4 +49,8 @@ const AddBlogForm = ({ handleAdd }) => {
   )
 }
 
-export default AddBlogForm
+const mapToDispatch = {
+  createBlog
+}
+
+export default connect(null, mapToDispatch)(AddBlogForm)
