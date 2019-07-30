@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 
 const Notification = ({ message }) => {
 
@@ -32,4 +33,9 @@ Notification.propTypes = {
   message: PropTypes.object
 }
 
-export default Notification
+export default connect(
+  (state) => {
+    return {
+      message: state
+    }
+  })(Notification)

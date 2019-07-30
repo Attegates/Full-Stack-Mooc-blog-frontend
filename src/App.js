@@ -7,15 +7,16 @@ import AddBlogForm from './components/AddBlogForm'
 import Notification from './components/Notification'
 import Togglable from './components/Togglable'
 import { useField } from './hooks/index'
+import { setNotification } from './reducers/notificationReducer'
+import { connect } from 'react-redux'
 
-const App = () => {
+const App = (props) => {
 
   const [blogs, setBlogs] = useState([])
   const [sortedBlogs, setSortedBlogs] = useState([])
   const [user, setUser] = useState(null)
   const username = useField('text')
   const password = useField('password')
-  const [notification, setNotification] = useState(null)
   const blogFormRef = React.createRef()
 
 
@@ -59,10 +60,7 @@ const App = () => {
       password.resetField()
     } catch (exception) {
       console.error(exception)
-      setNotification({ message: 'wrong credentials', isError: true })
-      setTimeout(() => {
-        setNotification(null)
-      }, 5000)
+      props.setNotification({ message: 'wrong credentials', isError: true }, 5)
     }
   }
 
@@ -83,10 +81,7 @@ const App = () => {
       blogFormRef.current.toggleVisibility()
       const returnedBlog = await blogService.create(blogObject)
       setBlogs(blogs.concat(returnedBlog))
-      setNotification({ message: `a new blog ${returnedBlog.title} by ${returnedBlog.author} added`, isError: false })
-      setTimeout(() => {
-        setNotification(null)
-      }, 5000)
+      props.setNotification({ message: `a new blog ${returnedBlog.title} by ${returnedBlog.author} added`, isError: false }, 5)
     } catch (exception) {
       console.error(exception)
     }
@@ -132,9 +127,7 @@ const App = () => {
 
   return (
     <div>
-      <Notification
-        message={notification}
-      />
+      <Notification />
       {user === null
         ?
         <div>
@@ -160,10 +153,9 @@ const App = () => {
               showRemoveButton={user.username === blog.user.username}
             />
           )}
-
         </div>}
     </div>
   )
 }
 
-export default App
+export default connect(null, { setNotification })(App)
