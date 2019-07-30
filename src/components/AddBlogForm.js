@@ -2,9 +2,10 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { useField } from '../hooks/index'
 import { createBlog } from '../reducers/blogReducer'
+import { setNotification } from '../reducers/notificationReducer'
 
 
-const AddBlogForm = ({ createBlog, handleAdd }) => {
+const AddBlogForm = (props) => {
 
   // take out the resetField() from useField objects.
   const title = useField('text')
@@ -16,8 +17,13 @@ const AddBlogForm = ({ createBlog, handleAdd }) => {
 
   const onSubmit = (event) => {
     event.preventDefault()
-    //handleAdd(title.value, author.value, url.value)
-    createBlog({ title: title.value })
+    const blogObject = {
+      title: title.value,
+      author: author.value,
+      url: url.value
+    }
+    props.createBlog(blogObject)
+    props.setNotification({ message: `a new blog ${blogObject.title} by ${blogObject.author} added`, isError: false }, 5)
     titleReset()
     authorReset()
     urlReset()
@@ -50,7 +56,8 @@ const AddBlogForm = ({ createBlog, handleAdd }) => {
 }
 
 const mapToDispatch = {
-  createBlog
+  createBlog,
+  setNotification
 }
 
 export default connect(null, mapToDispatch)(AddBlogForm)

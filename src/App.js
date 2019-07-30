@@ -36,6 +36,7 @@ const App = (props) => {
     setSortedBlogs([...blogs].sort((a, b) => b.likes - a.likes))
   }, [blogs])
   */
+
   const initializeBlogs = props.initBlogs
   useEffect(() => {
     initializeBlogs()
@@ -116,9 +117,7 @@ const App = (props) => {
   const addBlogForm = () => {
     return (
       <Togglable buttonLabel="new blog" ref={blogFormRef}>
-        <AddBlogForm
-          handleAdd={addBlog}
-        />
+        <AddBlogForm />
       </Togglable>
     )
   }

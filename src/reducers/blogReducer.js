@@ -1,10 +1,10 @@
 import blogService from '../services/blogs'
 
 const blogReducer = (state = [], action) => {
+  console.log(state)
   switch (action.type) {
     case 'CREATE_BLOG':
-      console.log(action.data)
-      break
+      return [...state, action.data]
     case 'INIT_BLOGS':
       return action.data
     default:
@@ -14,11 +14,15 @@ const blogReducer = (state = [], action) => {
 
 const createBlog = (blog) => {
   return async (dispatch) => {
-    const newBlog = blog//await blogService.create(blog)
-    dispatch({
-      type: 'CREATE_BLOG',
-      data: newBlog,
-    })
+    try {
+      const newBlog = await blogService.create(blog)
+      dispatch({
+        type: 'CREATE_BLOG',
+        data: newBlog,
+      })
+    } catch (error) {
+      console.error(error)
+    }
   }
 }
 
