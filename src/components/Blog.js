@@ -23,7 +23,7 @@ const Blog = ({ blog, addLike, handleRemove, showRemoveButton }) => {
         {showExtended &&
           <div className="extendedContent">
             <a href={blog.url}>{blog.url}</a>
-            <p>{blog.likes} likes <button onClick={() => addLike(blog.id)}>likes</button></p>
+            <p>{blog.likes} likes <button onClick={() => addLike(blog)}>likes</button></p>
             <p>added by {blog.user.name}</p>
             <button style={showRemove} onClick={() => handleRemove(blog.id)}>remove</button>
           </div>
