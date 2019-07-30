@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
-const Blog = ({ blog, addLike, handleRemove, showRemoveButton }) => {
+
+const Blog = ({ blog, handleRemoveClick, handleLikeClick }) => {
 
   const [showExtended, setShowExtended] = useState(false)
-  const showRemove = { display: showRemoveButton ? '' : 'none' }
-
+  const showRemove = { display: '' }//{ display: showRemoveButton ? '' : 'none' }
+  // TODO get user details from store to determine showRemove.
 
   const blogStyle = {
     paddingTop: 10,
@@ -13,27 +14,20 @@ const Blog = ({ blog, addLike, handleRemove, showRemoveButton }) => {
     marginBottom: 5
   }
 
-
-  const blogElement = () => {
-    return (
-      <div className="blog" style={blogStyle}>
-        <div className="basicContent" onClick={() => setShowExtended(!showExtended)}>
-          {blog.title} {blog.author}
-        </div>
-        {showExtended &&
-          <div className="extendedContent">
-            <a href={blog.url}>{blog.url}</a>
-            <p>{blog.likes} likes <button onClick={() => addLike(blog)}>likes</button></p>
-            <p>added by {blog.user.name}</p>
-            <button style={showRemove} onClick={() => handleRemove(blog.id)}>remove</button>
-          </div>
-        }
-      </div>
-    )
-  }
-
   return (
-    blogElement()
+    <div className="blog" style={blogStyle}>
+      <div className="basicContent" onClick={() => setShowExtended(!showExtended)}>
+        {blog.title} {blog.author}
+      </div>
+      {showExtended &&
+        <div className="extendedContent">
+          <a href={blog.url}>{blog.url}</a>
+          <p>{blog.likes} likes <button onClick={() => handleLikeClick(blog)}>likes</button></p>
+          <p>added by {blog.user.name}</p>
+          <button style={showRemove} onClick={() => handleRemoveClick(blog.id)}>remove</button>
+        </div>
+      }
+    </div>
   )
 }
 

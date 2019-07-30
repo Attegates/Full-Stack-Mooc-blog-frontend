@@ -10,6 +10,7 @@ import { useField } from './hooks/index'
 import { setNotification } from './reducers/notificationReducer'
 import { initBlogs, addLike, deleteBlog } from './reducers/blogReducer'
 import { connect } from 'react-redux'
+import BlogList from './components/BlogList'
 
 const App = (props) => {
 
@@ -97,15 +98,7 @@ const App = (props) => {
           <p>{user.name} logged in <button onClick={() => handleLogout()}>logout</button></p>
           <h2>create new</h2>
           {addBlogForm()}
-          {props.blogs.map(blog =>
-            <Blog
-              key={blog.id}
-              blog={blog}
-              addLike={props.addLike}
-              handleRemove={props.deleteBlog}
-              showRemoveButton={user.username === blog.user.username}
-            />
-          )}
+          <BlogList />
         </div>}
     </div>
   )
