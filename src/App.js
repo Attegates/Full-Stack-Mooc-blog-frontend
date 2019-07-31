@@ -10,6 +10,9 @@ import { initUsers } from './reducers/usersReducer'
 import UserList from './components/UserList'
 import { connect } from 'react-redux'
 import BlogList from './components/BlogList'
+import UserBlogs from './components/UserBlogs'
+import { BrowserRouter as Router, Link, Route, withRouter } from 'react-router-dom'
+
 
 const App = (props) => {
   const initializeBlogs = props.initBlogs
@@ -29,9 +32,12 @@ const App = (props) => {
 
   const addBlogForm = () => {
     return (
-      <Togglable buttonLabel="new blog">
-        <AddBlogForm />
-      </Togglable>
+      <div>
+        <h2>create new</h2>
+        <Togglable buttonLabel="new blog">
+          <AddBlogForm />
+        </Togglable>
+      </div>
     )
   }
 
@@ -46,12 +52,24 @@ const App = (props) => {
         </div>
         :
         <div>
-          <h2>Blogs</h2>
-          <p>{props.user.name} logged in <LogoutButton /></p>
-          <h2>create new</h2>
-          {addBlogForm()}
-          <BlogList />
-          <UserList />
+          <div>
+            <h2>Blogs</h2>
+            <p>{props.user.name} logged in <LogoutButton /></p>
+          </div>
+          <Router>
+            <Route exact path="/" render={() =>
+              <div>
+                {addBlogForm()}
+                <BlogList />
+              </div>
+            }></Route>
+            <Route exact path="/users" render={() => <UserList />} ></Route>
+            <Route
+              exact path="/users/:username"
+              render={({ match }) =>
+                <UserBlogs username={match.params.username} />}>
+            </Route>
+          </Router>
         </div>}
     </div>
   )

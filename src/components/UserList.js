@@ -1,22 +1,26 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
+
 
 const UserList = (props) => {
   return (
     <div>
       <table>
-        <tr>
-          <th></th>
-          <th>blogs created</th>
-        </tr>
-        {props.users.map(u =>
-          <tr key={u.username}>
-            <td>{u.username}</td>
-            <td>{u.blogs.length}</td>
+        <tbody>
+          <tr>
+            <th></th>
+            <th>blogs created</th>
           </tr>
-        )}
+          {props.users.map(u =>
+            <tr key={u.username}>
+              <td><Link to={`/users/${u.username}`}>{u.username}</Link></td>
+              <td>{u.blogs.length}</td>
+            </tr>
+          )}
+        </tbody>
       </table>
-    </div>
+    </div >
   )
 }
 
