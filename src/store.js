@@ -4,11 +4,13 @@ import thunk from 'redux-thunk'
 import notificationReducer from './reducers/notificationReducer'
 import blogReducer from './reducers/blogReducer'
 import userReducer from './reducers/userReducer'
+import usersReducer from './reducers/usersReducer'
 
 const reducer = combineReducers({
   notificationReducer,
   blogReducer,
   userReducer,
+  usersReducer,
 })
 
 const store = createStore(reducer, applyMiddleware(thunk))
