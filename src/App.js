@@ -2,17 +2,15 @@ import React, { useEffect } from 'react'
 import LoginForm from './components/LoginForm'
 import AddBlogForm from './components/AddBlogForm'
 import Notification from './components/Notification'
+import LogoutButton from './components/LogoutButton'
 import Togglable from './components/Togglable'
 import { initBlogs } from './reducers/blogReducer'
-import { setUserFromStorage, nullifyUser } from './reducers/userReducer'
+import { setUserFromStorage } from './reducers/userReducer'
 
 import { connect } from 'react-redux'
 import BlogList from './components/BlogList'
 
 const App = (props) => {
-
-  const blogFormRef = React.createRef()
-
   const initializeBlogs = props.initBlogs
   const trySetUserOnLoad = props.setUserFromStorage
 
@@ -23,14 +21,10 @@ const App = (props) => {
     trySetUserOnLoad()
   }, [trySetUserOnLoad])
 
-  const handleLogout = () => {
-    props.nullifyUser()
-  }
-
 
   const addBlogForm = () => {
     return (
-      <Togglable buttonLabel="new blog" ref={blogFormRef}>
+      <Togglable buttonLabel="new blog">
         <AddBlogForm />
       </Togglable>
     )
@@ -48,7 +42,7 @@ const App = (props) => {
         :
         <div>
           <h2>Blogs</h2>
-          <p>{props.user.name} logged in <button onClick={() => handleLogout()}>logout</button></p>
+          <p>{props.user.name} logged in <LogoutButton /></p>
           <h2>create new</h2>
           {addBlogForm()}
           <BlogList />
@@ -63,4 +57,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, { nullifyUser, setUserFromStorage, initBlogs })(App)
+export default connect(mapStateToProps, { setUserFromStorage, initBlogs })(App)

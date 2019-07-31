@@ -18,15 +18,11 @@ const blogReducer = (state = [], action) => {
 
 const createBlog = (blog) => {
   return async (dispatch) => {
-    try {
-      const newBlog = await blogService.create(blog)
-      dispatch({
-        type: 'CREATE_BLOG',
-        data: newBlog,
-      })
-    } catch (error) {
-      console.error(error)
-    }
+    const newBlog = await blogService.create(blog)
+    dispatch({
+      type: 'CREATE_BLOG',
+      data: newBlog,
+    })
   }
 }
 

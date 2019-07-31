@@ -15,18 +15,24 @@ const AddBlogForm = (props) => {
   const url = useField('text')
   const { resetField: urlReset, ...urlInputFields } = url
 
-  const onSubmit = (event) => {
+  const onSubmit = async (event) => {
     event.preventDefault()
     const blogObject = {
       title: title.value,
       author: author.value,
       url: url.value
     }
-    props.createBlog(blogObject)
+    try {
+      await props.createBlog(blogObject)
+    } catch (error) {
+      props.setNotification({ message: `${error}`, isError: true }, 5)
+      return
+    }
     props.setNotification({ message: `a new blog ${blogObject.title} by ${blogObject.author} added`, isError: false }, 5)
     titleReset()
     authorReset()
     urlReset()
+    props.toggleVisibility()  // from parent <Toggleable />
   }
 
 
