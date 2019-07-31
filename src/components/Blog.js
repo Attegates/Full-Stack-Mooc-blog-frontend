@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
 
-const Blog = ({ blog, handleRemoveClick, handleLikeClick }) => {
+const Blog = ({ blog, handleRemoveClick, handleLikeClick, showRemoveButton }) => {
 
   const [showExtended, setShowExtended] = useState(false)
-  const showRemove = { display: '' }//{ display: showRemoveButton ? '' : 'none' }
-  // TODO get user details from store to determine showRemove.
+  const showRemove = { display: showRemoveButton ? '' : 'none' }
 
   const blogStyle = {
     paddingTop: 10,

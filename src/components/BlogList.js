@@ -4,8 +4,6 @@ import Blog from './Blog'
 import { addLike, deleteBlog } from '../reducers/blogReducer'
 
 const BlogList = (props) => {
-
-
   return (
     props.blogs.map(blog =>
       <Blog
@@ -13,6 +11,7 @@ const BlogList = (props) => {
         blog={blog}
         handleLikeClick={props.addLike}
         handleRemoveClick={props.deleteBlog}
+        showRemoveButton={blog.user.username === props.user.username}
       />
     )
   )
@@ -23,16 +22,16 @@ const sortByLikes = (list) => {
   return list
 }
 
-const mapToStateToProps = (state) => {
+const mapStateToProps = (state) => {
   return {
-    blogs: sortByLikes([...state.blogReducer])
+    blogs: sortByLikes([...state.blogReducer]),
+    user: state.userReducer
   }
 }
-
 
 const mapToDispatch = {
   addLike,
   deleteBlog,
 }
 
-export default connect(mapToStateToProps, mapToDispatch)(BlogList)
+export default connect(mapStateToProps, mapToDispatch)(BlogList)

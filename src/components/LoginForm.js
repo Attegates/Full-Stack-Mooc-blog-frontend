@@ -1,23 +1,40 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import { useField } from '../hooks/index'
+import { setNotification } from '../reducers/notificationReducer'
+import { login } from '../reducers/userReducer'
 
-const LoginForm = ({ handleLogin, usernameField, passwordField }) => {
+const LoginForm = (props) => {
+
+  const onSubmit = async (event) => {
+    event.preventDefault()
+
+    try {
+      props.login({ username: username.value, password: password.value })
+      usernameReset()
+      passwordReset()
+    } catch (exception) {
+      console.error(exception)
+      props.setNotification({ message: 'wrong credentials', isError: true }, 5)
+    }
+  }
+
+  const { resetField: usernameReset, ...username } = useField('text')
+  const { resetField: passwordReset, ...password } = useField('password')
+
   return (
-    <form className="loginForm" onSubmit={handleLogin}>
+    <form className="loginForm" onSubmit={onSubmit}>
       <div>
         username
         <input
-          type={usernameField.type}
-          value={usernameField.value}
-          onChange={usernameField.onChange}
+          {...username}
           name="Username"
         />
       </div>
       <div>
         password
         <input
-          type={passwordField.type}
-          value={passwordField.value}
-          onChange={passwordField.onChange}
+          {...password}
           name="Password"
         />
       </div>
@@ -26,4 +43,4 @@ const LoginForm = ({ handleLogin, usernameField, passwordField }) => {
   )
 }
 
-export default LoginForm
+export default connect(null, { login, setNotification })(LoginForm)

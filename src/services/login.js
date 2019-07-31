@@ -6,8 +6,4 @@ const login = async credentials => {
   return response.data
 }
 
-const logout = async () => {
-  
-}
-
-export default { login, logout }
+export default { login }

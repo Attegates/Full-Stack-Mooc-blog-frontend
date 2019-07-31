@@ -58,7 +58,6 @@ const addLike = (blog) => {
   return async (dispatch) => {
     try {
       const toChange = { ...blog, likes: blog.likes + 1 }
-      console.log(blog)
       const updatedBlog = await blogService.update(blog.id, toChange)
       dispatch({
         type: 'ADD_LIKE',
