@@ -1,6 +1,5 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { addLike, deleteBlog } from '../reducers/blogReducer'
 import { Link } from 'react-router-dom'
 
 const BlogList = (props) => {
@@ -34,9 +33,5 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapToDispatch = {
-  addLike,
-  deleteBlog,
-}
 
-export default connect(mapStateToProps, mapToDispatch)(BlogList)
+export default connect(mapStateToProps)(BlogList)

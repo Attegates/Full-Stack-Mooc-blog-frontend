@@ -15,9 +15,9 @@ const Blog = ( props ) => {
   return (
     <div>
       <a href={blog.url}>{blog.url}</a>
-      <p>{blog.likes} likes <button onClick={() => props.handleLikeClick(blog)}>likes</button></p>
+      <p>{blog.likes} likes <button onClick={() => props.addLike(blog)}>likes</button></p>
       <p>added by {blog.user.name}</p>
-      <button style={showRemove} onClick={() => props.handleRemoveClick(blog.id)}>remove</button>
+      <button style={showRemove} onClick={() => props.deleteBlog(blog.id)}>remove</button>
     </div>
   )
 }
