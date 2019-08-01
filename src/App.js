@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import LoginForm from './components/LoginForm'
 import AddBlogForm from './components/AddBlogForm'
 import Notification from './components/Notification'
-import LogoutButton from './components/LogoutButton'
+import Menu from './components/Menu'
 import Togglable from './components/Togglable'
 import { initBlogs } from './reducers/blogReducer'
 import { setUserFromStorage } from './reducers/userReducer'
@@ -53,11 +53,8 @@ const App = (props) => {
         </div>
         :
         <div>
-          <div>
-            <h2>Blogs</h2>
-            <p>{props.user.name} logged in <LogoutButton /></p>
-          </div>
           <Router>
+            <Menu name={props.user.name} />
             <Route exact path="/" render={() =>
               <div>
                 {addBlogForm()}
