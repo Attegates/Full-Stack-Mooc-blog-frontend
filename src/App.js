@@ -11,7 +11,8 @@ import UserList from './components/UserList'
 import { connect } from 'react-redux'
 import BlogList from './components/BlogList'
 import UserBlogs from './components/UserBlogs'
-import { BrowserRouter as Router, Link, Route, withRouter } from 'react-router-dom'
+import Blog from './components/Blog'
+import { BrowserRouter as Router, Route, withRouter } from 'react-router-dom'
 
 
 const App = (props) => {
@@ -68,6 +69,12 @@ const App = (props) => {
               exact path="/users/:username"
               render={({ match }) =>
                 <UserBlogs username={match.params.username} />}>
+            </Route>
+            <Route
+              path="/blogs/:id"
+              render={({ match }) =>
+                <Blog id={match.params.id} />
+              }>
             </Route>
           </Router>
         </div>}

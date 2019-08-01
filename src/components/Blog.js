@@ -1,33 +1,38 @@
-import React, { useState } from 'react'
+import React from 'react'
+import { connect } from 'react-redux'
+import { addLike, deleteBlog } from '../reducers/blogReducer'
 
-const Blog = ({ blog, handleRemoveClick, handleLikeClick, showRemoveButton }) => {
+const Blog = ( props ) => {
 
-  const [showExtended, setShowExtended] = useState(false)
-  const showRemove = { display: showRemoveButton ? '' : 'none' }
-
-  const blogStyle = {
-    paddingTop: 10,
-    paddingLeft: 2,
-    border: 'solid',
-    borderWidth: 1,
-    marginBottom: 5
+  if (props.user === undefined || props.blog === undefined) {
+    return null
   }
 
+  const blog = props.blog
+  const showRemove = { display: props.user.username === blog.user.username ? '' : 'none' }
+
+
   return (
-    <div className="blog" style={blogStyle}>
-      <div className="basicContent" onClick={() => setShowExtended(!showExtended)}>
-        {blog.title} {blog.author}
-      </div>
-      {showExtended &&
-        <div className="extendedContent">
-          <a href={blog.url}>{blog.url}</a>
-          <p>{blog.likes} likes <button onClick={() => handleLikeClick(blog)}>likes</button></p>
-          <p>added by {blog.user.name}</p>
-          <button style={showRemove} onClick={() => handleRemoveClick(blog.id)}>remove</button>
-        </div>
-      }
+    <div>
+      <a href={blog.url}>{blog.url}</a>
+      <p>{blog.likes} likes <button onClick={() => props.handleLikeClick(blog)}>likes</button></p>
+      <p>added by {blog.user.name}</p>
+      <button style={showRemove} onClick={() => props.handleRemoveClick(blog.id)}>remove</button>
     </div>
   )
 }
 
-export default Blog
+
+const mapStateToProps = (state, ownProps) => {
+  return {
+    blog: state.blogReducer.find(b => b.id === ownProps.id),
+    user: state.userReducer
+  }
+}
+
+const mapToDispatch = {
+  addLike,
+  deleteBlog,
+}
+
+export default connect(mapStateToProps, mapToDispatch)(Blog)

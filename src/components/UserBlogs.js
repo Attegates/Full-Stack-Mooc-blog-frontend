@@ -9,13 +9,7 @@ const UserBlogs = (props) => {
   }
 
   const { name, blogs } = props.user
-  console.log('name', name)
-  console.log('blogs', blogs)
-  console.log(props.user)
 
-  //const user = props.user
-  //const name = user.name
-  //const blogs = user.blogs
   return (
     <div>
       <h2>{name}</h2>
