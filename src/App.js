@@ -14,7 +14,15 @@ import UserBlogs from './components/UserBlogs'
 import Blog from './components/Blog'
 import { initComments } from './reducers/commentReducer'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
+import styled from 'styled-components'
 
+const Container = styled.div`
+  width: 90%;
+  margin: auto
+  @media(max-width: 600px) {
+    width: 100%
+  }
+`
 
 const App = (props) => {
   const initializeBlogs = props.initBlogs
@@ -48,39 +56,41 @@ const App = (props) => {
   }
 
   return (
-    <div>
-      <Notification />
-      {props.user === null
-        ?
-        <div>
-          <h2>Log in to application</h2>
-          <LoginForm />
-        </div>
-        :
-        <div>
-          <Router>
-            <Menu name={props.user.name} />
-            <Route exact path="/" render={() =>
-              <div>
-                {addBlogForm()}
-                <BlogList />
-              </div>
-            }></Route>
-            <Route exact path="/users" render={() => <UserList />} ></Route>
-            <Route
-              exact path="/users/:username"
-              render={({ match }) =>
-                <UserBlogs username={match.params.username} />}>
-            </Route>
-            <Route
-              path="/blogs/:id"
-              render={({ match }) =>
-                <Blog id={match.params.id} />
-              }>
-            </Route>
-          </Router>
-        </div>}
-    </div>
+    <Container>
+      <div>
+        <Notification />
+        {props.user === null
+          ?
+          <div>
+            <h2>Log in to application</h2>
+            <LoginForm />
+          </div>
+          :
+          <div>
+            <Router>
+              <Menu name={props.user.name} />
+              <Route exact path="/" render={() =>
+                <div>
+                  {addBlogForm()}
+                  <BlogList />
+                </div>
+              }></Route>
+              <Route exact path="/users" render={() => <UserList />} ></Route>
+              <Route
+                exact path="/users/:username"
+                render={({ match }) =>
+                  <UserBlogs username={match.params.username} />}>
+              </Route>
+              <Route
+                path="/blogs/:id"
+                render={({ match }) =>
+                  <Blog id={match.params.id} />
+                }>
+              </Route>
+            </Router>
+          </div>}
+      </div>
+    </Container>
   )
 }
 

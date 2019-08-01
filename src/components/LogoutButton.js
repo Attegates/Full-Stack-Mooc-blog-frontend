@@ -1,14 +1,23 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { nullifyUser } from '../reducers/userReducer'
+import Button from './styled/Button'
 
 const LogoutButton = (props) => {
   const handleLogout = () => {
     props.nullifyUser()
   }
 
+  const position = {
+    position: 'absolute',
+    right: '2%',
+    top: '25%'
+  }
+
   return (
-    <button onClick={handleLogout}>logout</button>
+    <div style={position}>
+      <Button onClick={handleLogout}>logout</Button>
+    </div>
   )
 }
 
