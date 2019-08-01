@@ -2,15 +2,23 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { addLike, deleteBlog } from '../reducers/blogReducer'
 
-const Blog = ( props ) => {
+const Comments = ({ comments }) => {
+  return (
+    <ul>
+      {comments.map(c =>
+        <li key={c.id}>{c.content}</li>
+      )}
+    </ul >
+  )
+}
 
-  if (props.user === undefined || props.blog === undefined) {
+const Blog = (props) => {
+  if (props.user === undefined || props.blog === undefined || props.comments === undefined) {
     return null
   }
 
   const blog = props.blog
   const showRemove = { display: props.user.username === blog.user.username ? '' : 'none' }
-
 
   return (
     <div>
@@ -18,6 +26,8 @@ const Blog = ( props ) => {
       <p>{blog.likes} likes <button onClick={() => props.addLike(blog)}>likes</button></p>
       <p>added by {blog.user.name}</p>
       <button style={showRemove} onClick={() => props.deleteBlog(blog.id)}>remove</button>
+      <h3>comments</h3>
+      <Comments comments={props.comments} />
     </div>
   )
 }
@@ -26,7 +36,8 @@ const Blog = ( props ) => {
 const mapStateToProps = (state, ownProps) => {
   return {
     blog: state.blogReducer.find(b => b.id === ownProps.id),
-    user: state.userReducer
+    user: state.userReducer,
+    comments: state.commentReducer.filter(c => c.blog === ownProps.id)
   }
 }
 

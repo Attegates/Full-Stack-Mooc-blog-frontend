@@ -12,13 +12,15 @@ import { connect } from 'react-redux'
 import BlogList from './components/BlogList'
 import UserBlogs from './components/UserBlogs'
 import Blog from './components/Blog'
-import { BrowserRouter as Router, Route, withRouter } from 'react-router-dom'
+import { initComments } from './reducers/commentReducer'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 
 
 const App = (props) => {
   const initializeBlogs = props.initBlogs
   const trySetUserOnLoad = props.setUserFromStorage
   const initializeUsers = props.initUsers
+  const initializeComments = props.initComments
 
   useEffect(() => {
     initializeBlogs()
@@ -29,6 +31,9 @@ const App = (props) => {
   useEffect(() => {
     initializeUsers()
   }, [initializeUsers])
+  useEffect(() => {
+    initializeComments()
+  }, [initializeComments])
 
 
   const addBlogForm = () => {
@@ -85,4 +90,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, { setUserFromStorage, initBlogs, initUsers })(App)
+export default connect(mapStateToProps, { setUserFromStorage, initBlogs, initUsers, initComments })(App)
