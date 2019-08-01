@@ -1,7 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { addLike, deleteBlog } from '../reducers/blogReducer'
-
+import { useField } from '../hooks/index'
+import { addComment } from '../reducers/commentReducer'
 const Comments = ({ comments }) => {
   return (
     <ul>
@@ -9,6 +10,26 @@ const Comments = ({ comments }) => {
         <li key={c.id}>{c.content}</li>
       )}
     </ul >
+  )
+}
+
+const CommentForm = ({ blogId, addComment }) => {
+  const { resetField: commentReset, ...comment } = useField('text')
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    commentReset()
+    addComment(blogId, { content: comment.value })
+  }
+  return (
+    <form onSubmit={handleSubmit}>
+      <div>
+        comment
+        <input
+          {...comment}
+        />
+        <button type="submit">add comment</button>
+      </div>
+    </form>
   )
 }
 
@@ -27,6 +48,7 @@ const Blog = (props) => {
       <p>added by {blog.user.name}</p>
       <button style={showRemove} onClick={() => props.deleteBlog(blog.id)}>remove</button>
       <h3>comments</h3>
+      <CommentForm blogId={blog.id} addComment={props.addComment} />
       <Comments comments={props.comments} />
     </div>
   )
@@ -44,6 +66,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapToDispatch = {
   addLike,
   deleteBlog,
+  addComment,
 }
 
 export default connect(mapStateToProps, mapToDispatch)(Blog)

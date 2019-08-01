@@ -11,9 +11,10 @@ const commentReducer = (state = [], action) => {
   }
 }
 
-const addComment = (comment) => {
+const addComment = (blogId, comment) => {
+  console.log(comment)
   return async (dispatch) => {
-    const newComment = await commentService.create(comment)
+    const newComment = await commentService.create(blogId, comment)
     dispatch({
       type: 'ADD_COMMENT',
       data: newComment,
