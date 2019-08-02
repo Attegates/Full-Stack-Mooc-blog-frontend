@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-const Form = styled.div`
+const Form = styled.form`
   width 300px;
 `
 
@@ -14,6 +14,7 @@ const Input = styled.input`
   border-radius: 2px;
   width: 100%;
   margin-bottom: 0.5em;
+  background: #E6D72A
 `
 
 export default { Form, Label, Input }

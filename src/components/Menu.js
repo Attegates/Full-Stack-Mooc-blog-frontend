@@ -5,13 +5,14 @@ import styled from 'styled-components'
 
 const MenuBar = styled.div`
   padding: 1em;
-  border: 2px solid Pink;
+  border: 2px solid #F18D9E;
   position: relative;
+  background: #5BC8AC
 `
 
 const Menu = ({ name }) => {
   const padding = {
-    paddingRight: 5
+    paddingRight: 10
   }
   return (
     <MenuBar>

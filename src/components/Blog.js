@@ -3,6 +3,9 @@ import { connect } from 'react-redux'
 import { addLike, deleteBlog } from '../reducers/blogReducer'
 import { useField } from '../hooks/index'
 import { addComment } from '../reducers/commentReducer'
+import Form from './styled/Form'
+import Button from './styled/Button'
+
 const Comments = ({ comments }) => {
   return (
     <ul>
@@ -21,15 +24,15 @@ const CommentForm = ({ blogId, addComment }) => {
     addComment(blogId, { content: comment.value })
   }
   return (
-    <form onSubmit={handleSubmit}>
+    <Form.Form onSubmit={handleSubmit}>
       <div>
         comment
-        <input
+        <Form.Input
           {...comment}
         />
-        <button type="submit">add comment</button>
+        <Button type="submit">add comment</Button>
       </div>
-    </form>
+    </Form.Form>
   )
 }
 
@@ -44,9 +47,9 @@ const Blog = (props) => {
   return (
     <div>
       <a href={blog.url}>{blog.url}</a>
-      <p>{blog.likes} likes <button onClick={() => props.addLike(blog)}>likes</button></p>
+      <p>{blog.likes} likes <Button onClick={() => props.addLike(blog)}>like</Button></p>
       <p>added by {blog.user.name}</p>
-      <button style={showRemove} onClick={() => props.deleteBlog(blog.id)}>remove</button>
+      <Button primary style={showRemove} onClick={() => props.deleteBlog(blog.id)}>remove</Button>
       <h3>comments</h3>
       <CommentForm blogId={blog.id} addComment={props.addComment} />
       <Comments comments={props.comments} />

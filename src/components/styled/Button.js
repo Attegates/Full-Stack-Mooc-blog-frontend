@@ -1,22 +1,21 @@
 import styled, { css } from 'styled-components'
 
 const Button = styled.button`
-  background: #f2fafa;
-  color: #308aff;
+  background: #FFFFFF;
+  color: #F18D9E;
   border-radius: 2px;
-  border: 2px solid;
-  width: 80px;
+  border: 2px solid #F18D9E
+  text-align: center;
   height 30px;
-  :hover {
-    box-shadow: 0 0 6px #000000;
-  }
+  min-width: 60px;
+  display: inline-block;
 
   ${props =>
     props.primary &&
     css`
-      background: #308aff;
-      color: #f2fafa
-    
+      background: #F18D9E;
+      color: #FFFFFF
+      border: none
   `};
 `
 

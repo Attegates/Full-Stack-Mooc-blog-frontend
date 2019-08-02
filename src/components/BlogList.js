@@ -1,22 +1,23 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+import styled from 'styled-components'
 
 const BlogList = (props) => {
 
-  const listStyle = {
-    paddingTop: 10,
-    paddingLeft: 2,
-    border: 'solid',
-    borderWidth: 1,
-    marginBottom: 5
-  }
+  const ListDiv = styled.div`
+    padding-top: 10px;
+    padding-left: 2px;
+    border: solid;
+    border-width: 1px;
+    margin-bottom: 10px;
+  `
 
   return (
     props.blogs.map(blog =>
-      <div key={blog.id} style={listStyle}>
+      <ListDiv key={blog.id} >
         <Link to={`/blogs/${blog.id}`}>{blog.title} {blog.author} </Link>
-      </div>
+      </ListDiv>
     )
   )
 }

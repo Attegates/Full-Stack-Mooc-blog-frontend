@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+import Table from './styled/Table'
 
 
 const UserList = (props) => {
@@ -9,13 +10,13 @@ const UserList = (props) => {
       <table>
         <tbody>
           <tr>
-            <th></th>
-            <th>blogs created</th>
+            <Table.Th>username</Table.Th>
+            <Table.Th>blogs created</Table.Th>
           </tr>
           {props.users.map(u =>
             <tr key={u.username}>
-              <td><Link to={`/users/${u.username}`}>{u.username}</Link></td>
-              <td>{u.blogs.length}</td>
+              <Table.Td><Link to={`/users/${u.username}`}>{u.username}</Link></Table.Td>
+              <Table.Td>{u.blogs.length}</Table.Td>
             </tr>
           )}
         </tbody>

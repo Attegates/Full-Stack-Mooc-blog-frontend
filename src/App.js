@@ -22,6 +22,7 @@ const Container = styled.div`
   @media(max-width: 600px) {
     width: 100%
   }
+  background: #98DBC6
 `
 
 const App = (props) => {
