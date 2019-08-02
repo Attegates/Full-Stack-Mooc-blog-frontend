@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import { useField } from '../hooks/index'
 import { createBlog } from '../reducers/blogReducer'
 import { setNotification } from '../reducers/notificationReducer'
+import Form from './styled/Form'
+import Button from './styled/Button'
 
 
 const AddBlogForm = (props) => {
@@ -37,27 +39,27 @@ const AddBlogForm = (props) => {
 
 
   return (
-    <form onSubmit={onSubmit}>
+    <Form.Form onSubmit={onSubmit}>
       <div>
         title
-        <input
+        <Form.Input
           {...titleInputFields}
         />
       </div>
       <div>
         author
-        <input
+        <Form.Input
           {...authorInputFields}
         />
       </div>
       <div>
         url
-        <input
+        <Form.Input
           {...urlInputFields}
         />
       </div>
-      <button type="submit">add</button>
-    </form>
+      <Button primary type="submit">add</Button>
+    </Form.Form>
   )
 }
 

@@ -16,7 +16,7 @@ const LogoutButton = (props) => {
 
   return (
     <div style={position}>
-      <Button onClick={handleLogout}>logout</Button>
+      <Button primary onClick={handleLogout}>logout</Button>
     </div>
   )
 }
