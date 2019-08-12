@@ -43,22 +43,25 @@ const AddBlogForm = (props) => {
       <div>
         title
         <Form.Input
+          data-cy="titleInput"
           {...titleInputFields}
         />
       </div>
       <div>
         author
         <Form.Input
+          data-cy="authorInput"
           {...authorInputFields}
         />
       </div>
       <div>
         url
         <Form.Input
+          data-cy="urlInput"
           {...urlInputFields}
         />
       </div>
-      <Button primary type="submit">add</Button>
+      <Button data-cy="addBlogButton" primary type="submit">add</Button>
     </Form.Form>
   )
 }

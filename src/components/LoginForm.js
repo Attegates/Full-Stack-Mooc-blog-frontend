@@ -29,6 +29,7 @@ const LoginForm = (props) => {
         <input
           {...username}
           name="Username"
+          data-cy="usernameInput"
         />
       </div>
       <div>
@@ -36,9 +37,14 @@ const LoginForm = (props) => {
         <input
           {...password}
           name="Password"
+          data-cy="passwordInput"
         />
       </div>
-      <button type="submit">login</button>
+      <button
+        type="submit"
+        data-cy="loginButton">
+        login
+      </button>
     </form>
   )
 }
