@@ -49,7 +49,7 @@ const Blog = (props) => {
       <a href={blog.url}>{blog.url}</a>
       <p>{blog.likes} likes <Button onClick={() => props.addLike(blog)}>like</Button></p>
       <p>added by {blog.user.name}</p>
-      <Button primary style={showRemove} onClick={() => props.deleteBlog(blog.id)}>remove</Button>
+      <Button data-cy="removeBlogButton" primary style={showRemove} onClick={() => props.deleteBlog(blog.id)}>remove</Button>
       <h3>comments</h3>
       <CommentForm blogId={blog.id} addComment={props.addComment} />
       <Comments comments={props.comments} />

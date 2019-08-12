@@ -16,7 +16,7 @@ const BlogList = (props) => {
   return (
     props.blogs.map(blog =>
       <ListDiv key={blog.id} >
-        <Link to={`/blogs/${blog.id}`}>{blog.title} {blog.author} </Link>
+        <Link data-cy="blogLink" to={`/blogs/${blog.id}`}>{blog.title} {blog.author} </Link>
       </ListDiv>
     )
   )
