@@ -28,9 +28,10 @@ const CommentForm = ({ blogId, addComment }) => {
       <div>
         comment
         <Form.Input
+          data-cy="commentInput"
           {...comment}
         />
-        <Button type="submit">add comment</Button>
+        <Button data-cy="addCommentButton" type="submit">add comment</Button>
       </div>
     </Form.Form>
   )
